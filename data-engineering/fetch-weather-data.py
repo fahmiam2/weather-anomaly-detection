@@ -21,7 +21,7 @@ url = "https://archive-api.open-meteo.com/v1/archive"
 params = {
 	"latitude": -6.1818,
 	"longitude": 106.8223,
-	"start_date": "2010-01-01",
+	"start_date": "2001-01-01",
 	"end_date": "2023-12-31",
 	"hourly": ["is_day", "sunshine_duration"],
 	"daily": ["weather_code", "temperature_2m_max", "temperature_2m_min", "temperature_2m_mean", "apparent_temperature_max", "apparent_temperature_min", "apparent_temperature_mean", "sunrise", "sunset", "daylight_duration", "sunshine_duration", "precipitation_sum", "rain_sum", "snowfall_sum", "precipitation_hours", "wind_speed_10m_max", "wind_gusts_10m_max", "wind_direction_10m_dominant", "shortwave_radiation_sum", "et0_fao_evapotranspiration"],
@@ -76,7 +76,7 @@ daily_wind_direction_10m_dominant = daily.Variables(17).ValuesAsNumpy()
 daily_shortwave_radiation_sum = daily.Variables(18).ValuesAsNumpy()
 daily_et0_fao_evapotranspiration = daily.Variables(19).ValuesAsNumpy()
 
-daily_data = {"date": pd.date_range(
+daily_data = {"datetime": pd.date_range(
 	start = pd.to_datetime(daily.Time(), unit = "s", utc = True),
 	end = pd.to_datetime(daily.TimeEnd(), unit = "s", utc = True),
 	freq = pd.Timedelta(seconds = daily.Interval()),
@@ -106,4 +106,4 @@ daily_data["et0_fao_evapotranspiration"] = daily_et0_fao_evapotranspiration
 daily_dataframe = pd.DataFrame(data = daily_data)
 print(daily_dataframe)
 
-daily_dataframe.to_csv(str(root_directory) + "/data/jakarta_daily_weather_data_2010-2023.csv", index=False)
+daily_dataframe.to_csv(str(root_directory) + "/data/01_raw/jakarta_daily_weather_data_2000-2023.csv", index=False)
